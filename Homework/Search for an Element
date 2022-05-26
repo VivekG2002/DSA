@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node* left;
+    struct node* right;
+};
+ 
+struct node* newNode(int data)
+{
+    struct node* node = (struct node*)
+    malloc(sizeof(struct node));
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL;
+ 
+    return (node);
+}
+ 
+bool check_element(node * root, int key) {
+    // If root is null, element is not found:Backtrack 
+    if (root == NULL) {
+        return false;
+    }
+    // Check whether same or not
+    if (root -> data == key) {
+        return true;
+    }
+    
+    if (root -> data > key) {
+        // Traverse the left subtree
+        return check_element(root -> left, key);
+    }
+    // Else Traverse the right subtree
+    else {
+        return check_element(root -> right, key);
+    }
+}
+int main() {
+    node *root = newNode(80);
+    root -> left = newNode(60);
+    root -> right = newNode(90);
+    root -> left -> left = newNode(40);
+    root -> left -> right = newNode(70);
+    root -> left -> left -> left = newNode(30);
+    root -> left -> left -> right = newNode(50);
+    if (check_element(root,50)) {
+        printf("Found\n");
+    }
+    else {
+        printf("Not Found\n");
+    }
+    return 0;
+}
